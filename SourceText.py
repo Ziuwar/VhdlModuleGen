@@ -56,7 +56,7 @@ def blank_lines (count): # Adds blank lines from 1 to 99
         return ""
     return blank_lines
 
-def entity (module_name, generics, entity_in, entity_out): # Entity generation with in and outputs, generics have to be added manually
+def entity (module_name, generics, entity_in, entity_out): # Entity generation with inputs, outputs and generics
     entity_list = "--! @brief Entity of the "+ module_name +" logic module.\n"
     entity_list += "--! @details All test signal generation and result analysis is done here.\n" # TBD
 

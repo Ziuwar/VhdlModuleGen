@@ -20,8 +20,8 @@ generics = [("target_time", "integer", 5)]
 entity_in = [("Clock", 1),("Reset_n", 1),("TimingPulse", 15),("WarningEnable_n", 11)]
 entity_out = [("SirenOn", 1),("HornControl", 9), ("MuteActive", 3)]
 
-source_dir = "C:\\Temp\\vhdl_gen\\"+ module_name +".vhd"
-testbench_source_dir = "C:\\Temp\\vhdl_gen\\"+ module_name +"_tb.vhd"
+source_dir = "./Output/"+ module_name +".vhd"
+testbench_source_dir = "./Output/"+ module_name +"_tb.vhd"
 
 def assemble_source_file():
     source_file =  SourceText.header_gen(module_name, author, quartus_version)

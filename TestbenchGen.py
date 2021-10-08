@@ -11,6 +11,41 @@
 import SourceText
 import TestbenchProcedures
 
+def assamble_architecture_vunit_tb (module_name, generics, entity_in, entity_out):
+    architecture_list = architecture_start_tb(module_name)
+    architecture_list += signals_out(entity_in)
+    architecture_list += SourceText.blank_lines(1)
+    architecture_list += signals_in_tb(entity_out)
+    architecture_list += SourceText.blank_lines(1)
+    architecture_list += architecture_begin_tb()
+    architecture_list += dut_instantiation_tb(module_name, generics, entity_in, entity_out)
+    architecture_list += SourceText.blank_lines(1)
+    architecture_list += main_process_vunit_tb(module_name)
+    architecture_list += SourceText.blank_lines(1)
+    architecture_list += variables_vunit_tb(module_name)
+    architecture_list += SourceText.blank_lines(1)
+    architecture_list += TestbenchProcedures.include_procedures()
+    architecture_list += SourceText.blank_lines(1)
+    architecture_list += main_process_begin_tb()
+    architecture_list += open_report_file_vunit_tb()
+    architecture_list += SourceText.blank_lines(1)
+    architecture_list += vunit_start_tb()
+    architecture_list += SourceText.blank_lines(1)
+    architecture_list += testbench_vunit_while_tb()
+    architecture_list += vunit_testcase_one_tb(module_name)
+    architecture_list += SourceText.blank_lines(1)
+    architecture_list += vunit_testcase_two_tb(module_name)
+    architecture_list += SourceText.blank_lines(1)
+    architecture_list += report_vhdl_footer_tb(module_name)
+    architecture_list += SourceText.blank_lines(1)
+    architecture_list += close_loops_tb()
+    architecture_list += main_process_end_tb()
+    architecture_list += SourceText.blank_lines(1)
+    architecture_list += TestbenchProcedures.clock_process()
+    architecture_list += SourceText.blank_lines(1)
+    architecture_list += architecture_end_tb(module_name)
+    return architecture_list
+
 def header_gen_tb (module_name,author,quartus_version): # Creation of the header for the implementation file
     header_text ="-----------------------------------------------------------------\n"
     header_text +="--! @file	"+ module_name +".vhd\n"
@@ -87,37 +122,7 @@ def entity_tb (module_name): # Entity generation with inputs, outputs and generi
     entity_list += "        );\n"
     entity_list += "end entity e_"+ module_name +"Qualification_TB;\n"
     return entity_list
-
-def assamble_architecture_vunit_tb (module_name, generics, entity_in, entity_out):
-    architecture_list = architecture_start_tb(module_name)
-    architecture_list += signals_out(entity_in)
-    architecture_list += SourceText.blank_lines(1)
-    architecture_list += signals_in_tb(entity_out)
-    architecture_list += SourceText.blank_lines(1)
-    architecture_list += architecture_begin_tb()
-    architecture_list += dut_instantiation_tb(module_name, generics, entity_in, entity_out)
-    architecture_list += SourceText.blank_lines(1)
-    architecture_list += main_process_vunit_tb(module_name)
-    architecture_list += SourceText.blank_lines(1)
-    architecture_list += variables_vunit_tb()
-    architecture_list += SourceText.blank_lines(1)
-    architecture_list += TestbenchProcedures.include_procedures()
-    architecture_list += SourceText.blank_lines(1)
-    architecture_list += main_process_begin_tb()
-    architecture_list += open_report_file_vunit_tb()
-    architecture_list += SourceText.blank_lines(1)
-    architecture_list += vunit_start_tb()
-    architecture_list += SourceText.blank_lines(1)
-    architecture_list += testbench_vunit_while_tb()
-    architecture_list += vunit_testcase_one_tb(module_name)
-
-
-
-    architecture_list += main_process_end_tb()
-    architecture_list += SourceText.blank_lines(1)
-    architecture_list += architecture_end_tb(module_name)
-    return architecture_list
-
+    
 def assamble_architecture_tb ():
     architecture_list = ""
     return architecture_list
@@ -180,9 +185,9 @@ def main_process_vunit_tb (module_name):
     main_process_list += "    main : process\n"
     return main_process_list
 
-def variables_vunit_tb ():
+def variables_vunit_tb (module_name):
     variables_list =  """        variable qtb_logger : logger_t := get_logger("logging_timer_QTB:qtb_logger");   --! A logger framework provided by vunit\n"""
-    variables_list += """        constant file_name  : string   := output_path(runner_cfg) & "../../../results/HornControlResult.vhd"; --! Output path for the testbench results\n"""
+    variables_list += """        constant file_name  : string   := output_path(runner_cfg) & "../../../results/"""+ module_name +"""Result.vhd"; --! Output path for the testbench results\n"""
     variables_list +=   "        file fptr           : text;             --! File variable to store text passed to the logger\n"
     variables_list +=   "        variable status     : file_open_status; --! Provides feedback to the logger if a file is open\n"
     return variables_list
@@ -211,7 +216,7 @@ def testbench_vunit_while_tb ():
     return "        while test_suite loop --! Testbench loop\n"
 
 def vunit_testcase_one_tb (module_name):
-    test_one_list =  """            if run("""+ module_name +"""_test_one") then\n"""
+    test_one_list =    '             if run("'+ module_name +"""_test_one") then\n"""
     test_one_list +=   "                -- Create the result file header\n"
     test_one_list +=   "                --! \cond\n"
     test_one_list += """                print("--! \\addtogroup """+ module_name +"""_Module", fptr);\n"""
@@ -222,5 +227,49 @@ def vunit_testcase_one_tb (module_name):
     test_one_list += """                print("--! @page """+ module_name +"""" ,fptr);\n"""
     test_one_list += """                print("--! @section HornControl Result of tests",fptr);\n"""
     test_one_list +=   "                --! \endcond\n"
+    test_one_list += SourceText.blank_lines(1)
+    test_one_list +=   "                wait for 1 us;\n"
+    test_one_list += """                info("Test "& running_test_case &" - START");\n"""
+    test_one_list += """                test_header(running_test_case,\n"""
+    test_one_list += """                            "Lorem ipsum dolor sit amet.",\n""" 
+    test_one_list += """                            "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",\n"""
+    test_one_list += """                            "DHHLR_TBD","", "", "", "");\n"""
+    test_one_list += SourceText.blank_lines(1)
+    test_one_list +=   "                wait until rising_edge(Clock);\n"
+    test_one_list += SourceText.blank_lines(3)
+    test_one_list +=   "                wait for 1 sec;\n"
+    test_one_list += """                info("Test "& running_test_case &" - DONE");\n"""
     return test_one_list
 
+def vunit_testcase_two_tb (module_name):
+    test_two_list =    '             elsif run("'+ module_name +"""_test_two") then\n"""
+    test_two_list +=   "                wait for 1 us;\n"
+    test_two_list += """                info("Test "& running_test_case &" - START");\n"""
+    test_two_list += """                test_header(running_test_case,\n"""
+    test_two_list += """                            "Lorem ipsum dolor sit amet.",\n""" 
+    test_two_list += """                            "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",\n"""
+    test_two_list += """                            "DHHLR_TBD","", "", "", "");\n"""
+    test_two_list += SourceText.blank_lines(1)
+    test_two_list +=   "                wait until rising_edge(Clock);\n"
+    test_two_list += SourceText.blank_lines(3)
+    test_two_list +=   "                wait for 1 sec;\n"
+    test_two_list += """                info("Test "& running_test_case &" - DONE");\n"""
+    return test_two_list
+
+def report_vhdl_footer_tb (module_name):
+    footer_list =    "                -- Create the result file footer\n"
+    footer_list += """                print("--! \\n \\n", fptr);\n"""
+    footer_list += """                print("entity e_HornControlLog is ", fptr);\n"""
+    footer_list += """                print("end e_HornControlLog;",fptr);\n"""
+    footer_list += """                print("architecture a_HornControlLog of e_HornControlLog is",fptr);\n"""
+    footer_list += """                print("begin",fptr);\n"""
+    footer_list += """                print("end a_HornControlLog;",fptr);\n"""
+    footer_list += """                print("--! @}",fptr);\n"""
+    footer_list += """                print("--! @}",fptr);\n"""
+    return footer_list
+
+def close_loops_tb():
+    close_list =  "             end if;\n"
+    close_list += "             clock_go <= '0';\n"
+    close_list += "        end loop;\n"
+    return close_list

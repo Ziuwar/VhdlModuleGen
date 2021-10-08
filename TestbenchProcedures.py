@@ -31,3 +31,13 @@ def check_equal_bit ():
     check_equal_bit_list += "            end if;\n"
     check_equal_bit_list += "        end procedure check_equal_bit;\n"
     return check_equal_bit_list
+
+def clock_process():
+    clock_process_list =  "clk: process\n"
+    clock_process_list += "begin\n"
+    clock_process_list += "    Clock <= '1';\n"
+    clock_process_list += "    wait for (clock_period / 2);\n"
+    clock_process_list += "    Clock <= '0';\n"
+    clock_process_list += "    wait for (clock_period / 2);\n"
+    clock_process_list += "end process;\n"
+    return clock_process_list

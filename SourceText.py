@@ -84,9 +84,14 @@ def entity (module_name, generics, entity_in, entity_out): # Entity generation w
             entity_list += "        "+ entity[0] +" : out "
 
             if entity[1] == 1:
-                 entity_list += "std_logic;\n"
+                 entity_list += "std_logic"
             else:
-                entity_list += "std_logic_vector ["+ str(entity[1]) +" downto 0];\n"
+                entity_list += "std_logic_vector ["+ str(entity[1]) +" downto 0]"
+
+            if entity_out[len(entity_out) - 1] == entity:
+                entity_list += "\n"
+            else:
+                entity_list += ";\n"
 
     entity_list += "    );\n"
     entity_list += "end entity e_"+ module_name +";\n"

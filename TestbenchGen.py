@@ -165,7 +165,11 @@ def dut_instantiation_tb (module_name, generics, signals_out, signals_in):
     if generics:
         portmap_list += "    generic map(\n"
         for generic in generics:
-            portmap_list += "    "+ generic[0] +" => "+ str(generic[2]) +",\n"
+            portmap_list += "    "+ generic[0] +" => "+ str(generic[2])
+            if generics[len(generics) - 1] == generic:
+                portmap_list += "\n"
+            else:
+                portmap_list += ",\n"
         portmap_list += "    )\n"
     
     if signals_out and signals_in:
@@ -175,7 +179,11 @@ def dut_instantiation_tb (module_name, generics, signals_out, signals_in):
             portmap_list += "    "+ signal[0] + " => " + signal[0] + ",\n"
         portmap_list += "    -- From DUT aka TB Inputs\n"
         for signal in signals_in:
-            portmap_list += "    "+ signal[0] + " => " + signal[0] + ",\n"
+            portmap_list += "    "+ signal[0] + " => " + signal[0]
+            if signals_in[len(signals_in) - 1] == signal:
+                portmap_list += "\n"
+            else:
+                portmap_list += ",\n"
         portmap_list += "    );\n"
     return portmap_list
 
@@ -216,7 +224,7 @@ def testbench_vunit_while_tb ():
     return "        while test_suite loop --! Testbench loop\n"
 
 def vunit_testcase_one_tb (module_name):
-    test_one_list =    '             if run("'+ module_name +"""_test_one") then\n"""
+    test_one_list =    '            if run("'+ module_name +"""_test_one") then\n"""
     test_one_list +=   "                -- Create the result file header\n"
     test_one_list +=   "                --! \cond\n"
     test_one_list += """                print("--! \\addtogroup """+ module_name +"""_Module", fptr);\n"""
@@ -242,7 +250,7 @@ def vunit_testcase_one_tb (module_name):
     return test_one_list
 
 def vunit_testcase_two_tb (module_name):
-    test_two_list =    '             elsif run("'+ module_name +"""_test_two") then\n"""
+    test_two_list =    '            elsif run("'+ module_name +"""_test_two") then\n"""
     test_two_list +=   "                wait for 1 us;\n"
     test_two_list += """                info("Test "& running_test_case &" - START");\n"""
     test_two_list += """                test_header(running_test_case,\n"""
@@ -269,7 +277,7 @@ def report_vhdl_footer_tb (module_name):
     return footer_list
 
 def close_loops_tb():
-    close_list =  "             end if;\n"
-    close_list += "             clock_go <= '0';\n"
+    close_list =  "            end if;\n"
+    close_list += "            clock_go <= '0';\n"
     close_list += "        end loop;\n"
     return close_list

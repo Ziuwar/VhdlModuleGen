@@ -16,7 +16,7 @@ module_name = "SuperDuperThing"
 quartus_version = "20.3.0"
 author = "Andreas Schroeder"
 
-generics = [("target_time", "integer", 5)]
+generics = [("target_time", "integer", 5),("target_aquired", "std_logic", 1)]
 entity_in = [("Clock", 1),("Reset_n", 1),("TimingPulse", 15),("WarningEnable_n", 11)]
 entity_out = [("SirenOn", 1),("HornControl", 9), ("MuteActive", 3)]
 

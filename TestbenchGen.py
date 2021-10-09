@@ -11,8 +11,8 @@
 import SourceText
 import TestbenchProcedures
 
-def assemble_testbench_vunit_file(module_name, author, quartus_version, generics, entity_in, entity_out):
-    testbench_file =  header_gen_tb(module_name, author, quartus_version)
+def assemble_testbench_vunit_file (module_name, author, software_version, generics, entity_in, entity_out):
+    testbench_file =  header_gen_tb(module_name, author, software_version)
     testbench_file += SourceText.blank_lines(1)
     testbench_file += include_libs_vunit_tb()
     testbench_file += SourceText.blank_lines(1)

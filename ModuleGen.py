@@ -13,7 +13,7 @@ import SourceText
 import TestbenchGen
 
 module_name = "SuperDuperThing"
-quartus_version = "20.3.0"
+software_version = "20.3.0"
 author = "Andreas Schroeder"
 
 generics = [("target_time", "integer", 5),("target_aquired", "std_logic", 1)]
@@ -23,6 +23,6 @@ entity_out = [("SirenOn", 1),("HornControl", 9), ("MuteActive", 3)]
 source_dir = "./Output/"+ module_name +".vhd"
 testbench_source_dir = "./Output/"+ module_name +"_tb.vhd"
 
-FileOps.write_source_file(source_dir,SourceText.assemble_source_file(module_name,author,quartus_version,generics,entity_in,entity_out))
-FileOps.write_source_file(testbench_source_dir,TestbenchGen.assemble_testbench_vunit_file(module_name, author, quartus_version, generics, entity_in, entity_out))
+FileOps.write_source_file(source_dir,SourceText.assemble_source_file(module_name,author,software_version,generics,entity_in,entity_out))
+FileOps.write_source_file(testbench_source_dir,TestbenchGen.assemble_testbench_vunit_file(module_name,author,software_version,generics,entity_in,entity_out))
 

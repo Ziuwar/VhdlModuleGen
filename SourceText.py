@@ -8,8 +8,8 @@
 # Revision: 	R0.0.0 Not Tested
 ##################################################################################
 
-def assemble_source_file(module_name, author, quartus_version, generics, entity_in, entity_out):
-    source_file =  header_gen(module_name, author, quartus_version)
+def assemble_source_file (module_name,author,software_version,generics,entity_in,entity_out):
+    source_file =  header_gen(module_name, author, software_version)
     source_file += blank_lines(1)
     source_file += include_libs()
     source_file += blank_lines(1)
@@ -21,13 +21,13 @@ def assemble_source_file(module_name, author, quartus_version, generics, entity_
     source_file += doxygen_end()
     return source_file
 
-def header_gen (module_name,author,quartus_version): # Creation of the header for the implementation file
+def header_gen (module_name,author,software_version): # Creation of the header for the implementation file
     header_text ="-----------------------------------------------------------------\n"
     header_text +="--! @file	"+ module_name +".vhd\n"
     header_text +="--! @brief	Implementation of the VHDL module "+ module_name +".vhd\n"
     header_text +="\n"
     header_text +="--! @copyright 2021 Avionik Straubing Entwicklungs GmbH\n"
-    header_text +="--! @version Version 1.0, Platform: Quartus "+ quartus_version +"\n"
+    header_text +="--! @version Version 1.0, Platform: Quartus "+ software_version +"\n"
     header_text +="\n"
     header_text +="--! | Attribute | Value |\n"
     header_text +="--! | :-- | :-- |\n"

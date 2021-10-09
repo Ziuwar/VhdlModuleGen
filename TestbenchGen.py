@@ -37,7 +37,7 @@ def assamble_architecture_vunit_tb (module_name, generics, entity_in, entity_out
     architecture_list += SourceText.blank_lines(1)
     architecture_list += variables_vunit_tb(module_name)
     architecture_list += SourceText.blank_lines(1)
-    architecture_list += TestbenchProcedures.include_procedures()
+    architecture_list += TestbenchProcedures.include_procedures(module_name)
     architecture_list += SourceText.blank_lines(1)
     architecture_list += main_process_begin_tb()
     architecture_list += open_report_file_vunit_tb()

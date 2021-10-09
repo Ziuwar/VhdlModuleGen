@@ -10,7 +10,7 @@
 
 import SourceText
 
-def include_procedures ():
+def include_procedures (module_name):
     procedures_list = check_equal_bit()
     procedures_list += SourceText.blank_lines(1)
     procedures_list += check_equal_time()
@@ -18,6 +18,12 @@ def include_procedures ():
     procedures_list += check_equal_vector()
     procedures_list += SourceText.blank_lines(1)
     procedures_list += check_equal_integer()
+    procedures_list += SourceText.blank_lines(1)
+    procedures_list += wait_clock_plus_time()
+    procedures_list += SourceText.blank_lines(1)
+    procedures_list += time_diff_calc()
+    procedures_list += SourceText.blank_lines(1)
+    procedures_list += test_header(module_name)
     return procedures_list
 
 def check_equal_bit ():
@@ -92,11 +98,70 @@ def check_equal_integer ():
     check_equal_integer_list += "        end procedure check_equal_integer;\n"
     return check_equal_integer_list
 
+def wait_clock_plus_time():
+    wait_clock_plus_time_list =  "        --! Waits for a number of clocks (>= 1) and an additional time (>= 0 ns)\n"
+    wait_clock_plus_time_list += "        procedure wait_clock_plus_time(\n"
+    wait_clock_plus_time_list += "            constant number_of_clocks : integer;\n"
+    wait_clock_plus_time_list += "            constant additional_time : time\n"
+    wait_clock_plus_time_list += "        ) is\n"
+    wait_clock_plus_time_list += "        begin\n"
+    wait_clock_plus_time_list += "            for clocks in 1 to number_of_clocks loop\n"
+    wait_clock_plus_time_list += "                wait until rising_edge(Clock);\n"
+    wait_clock_plus_time_list += "            end loop;\n"
+    wait_clock_plus_time_list += "            wait for additional_time;\n"
+    wait_clock_plus_time_list += "        end procedure wait_clock_plus_time;\n"
+    return wait_clock_plus_time_list
 
+def time_diff_calc():
+    time_diff_calc_list =  "        --! Time calculations\n"
+    time_diff_calc_list += "        function time_diff_calc(\n"
+    time_diff_calc_list += "            constant p_time_one : time;\n"
+    time_diff_calc_list += "            constant p_time_two : time\n"
+    time_diff_calc_list += "        ) return time is\n"
+    time_diff_calc_list += "            variable time_difference : time;\n"
+    time_diff_calc_list += "        begin\n"
+    time_diff_calc_list += "            time_difference := p_time_two - p_time_one;\n"
+    time_diff_calc_list += "        return time_difference;\n"
+    time_diff_calc_list += "        end function time_diff_calc;\n"
+    return time_diff_calc_list
 
-
-
-
+def test_header(module_name):
+    test_header_list =    "        --! Created the header for the tests\n"
+    test_header_list +=   "        procedure test_header (\n"
+    test_header_list +=   "            constant test_name      : string;\n"
+    test_header_list +=   "            constant short_desc     : string;\n"
+    test_header_list +=   "            constant test_desc      : string;\n"
+    test_header_list +=   '            constant req_id_one     : string := "";\n'
+    test_header_list +=   '            constant req_id_two     : string := "";\n'
+    test_header_list +=   '            constant req_id_three   : string := "";\n'
+    test_header_list +=   '            constant req_id_four    : string := "";\n'
+    test_header_list +=   '            constant req_id_five    : string := ""\n'
+    test_header_list +=   "        ) is\n"
+    test_header_list +=   "        begin\n"
+    test_header_list += """            print("--! <b>"& short_desc &" Test Name: "& test_name &"</b> \\n", fptr);\n"""
+    test_header_list += """            print("--! "& test_desc &" \\n", fptr);\n"""
+    test_header_list += """            print("--! \\n", fptr);\n"""
+    test_header_list += """            if (req_id_one'length > 0) then\n"""
+    test_header_list += """                print("--! | Requirement(s) Covered |", fptr);\n"""
+    test_header_list += """                print("--! | :-: |", fptr);\n"""
+    test_header_list += """                if(req_id_one'length > 0) then\n"""
+    test_header_list += """                    print("--! | Tests "& req_id_one &" |", fptr);\n"""
+    test_header_list += """                    if (req_id_two'length > 0) then\n"""
+    test_header_list += """                        print("--! | Tests "& req_id_two &" |", fptr);      end if;\n"""
+    test_header_list += """                    if (req_id_three'length > 0) then\n"""
+    test_header_list += """                        print("--! | Tests "& req_id_three &" |", fptr);    end if;\n"""
+    test_header_list += """                    if (req_id_four'length > 0) then\n"""
+    test_header_list += """                        print("--! | Tests "& req_id_four &" |", fptr);     end if;\n"""
+    test_header_list += """                    if (req_id_five'length > 0) then\n"""
+    test_header_list += """                        print("--! | Tests "& req_id_five &" |", fptr);     end if;\n"""
+    test_header_list += """                end if;\n"""
+    test_header_list += """            end if;\n"""
+    test_header_list += """            print("--! \\n", fptr);\n"""
+    test_header_list += """            print("--! @image html  lib.e_"""+ module_name +"""qualification."& test_name &"_1.png "& test_name &"_1 width=1000", fptr);\n"""
+    test_header_list += """            print("--! @image latex lib.e_"""+ module_name +"""qualification."& test_name &"_1.png "& test_name &"_1 width=16cm", fptr);\n"""
+    test_header_list += """            print("--! \\n", fptr);\n"""
+    test_header_list +=   "        end procedure test_header;\n"
+    return test_header_list
 
 def clock_process():
     clock_process_list =  "clk: process\n"

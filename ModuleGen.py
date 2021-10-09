@@ -25,4 +25,3 @@ testbench_source_dir = "./Output/"+ module_name +"_tb.vhd"
 
 FileOps.write_source_file(source_dir,SourceText.assemble_source_file(module_name,author,software_version,generics,entity_in,entity_out))
 FileOps.write_source_file(testbench_source_dir,TestbenchGen.assemble_testbench_vunit_file(module_name,author,software_version,generics,entity_in,entity_out))
-

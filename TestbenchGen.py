@@ -15,6 +15,7 @@ def assemble_testbench_vunit_file (module_name, author, software_version, generi
     testbench_file =  header_gen_tb(module_name, author, software_version)
     testbench_file += SourceText.blank_lines(1)
     testbench_file += include_libs_vunit_tb()
+    testbench_file += include_libs_tb()
     testbench_file += SourceText.blank_lines(1)
     testbench_file += doxygen_start_tb(module_name)
     testbench_file += SourceText.blank_lines(1)
@@ -59,6 +60,31 @@ def assamble_architecture_vunit_tb (module_name, generics, entity_in, entity_out
     architecture_list += architecture_end_tb(module_name)
     return architecture_list
 
+def assemble_testbench_basic_file (module_name, author, software_version, generics, entity_in, entity_out):
+    testbench_file =  header_gen_tb(module_name, author, software_version)
+    testbench_file += SourceText.blank_lines(1)
+    testbench_file += include_libs_tb()
+    testbench_file += SourceText.blank_lines(1)
+    testbench_file += doxygen_start_tb(module_name)
+    testbench_file += SourceText.blank_lines(1)
+    testbench_file += entity_tb(module_name)
+    testbench_file += SourceText.blank_lines(1)
+    testbench_file += architecture_start_tb(module_name)
+    testbench_file += signals_out(entity_in)
+    testbench_file += SourceText.blank_lines(1)
+    testbench_file += signals_in_tb(entity_out)
+    testbench_file += SourceText.blank_lines(1)
+    testbench_file += architecture_begin_tb()
+    testbench_file += dut_instantiation_tb(module_name, generics, entity_in, entity_out)
+    testbench_file += SourceText.blank_lines(2)
+    testbench_file += basic_testcase()
+    testbench_file += SourceText.blank_lines(1)
+    testbench_file += TestbenchProcedures.clock_process()
+    testbench_file += SourceText.blank_lines(1)
+    testbench_file += architecture_end_tb(module_name)
+    testbench_file += doxygen_end_tb()
+    return testbench_file
+
 def header_gen_tb (module_name,author,quartus_version): # Creation of the header for the implementation file
     header_text ="-----------------------------------------------------------------\n"
     header_text +="--! @file	"+ module_name +".vhd\n"
@@ -87,7 +113,7 @@ def doxygen_end_tb (): # Close the doxygen groups
     doxygen_close_grp += "--! @}\n"
     return doxygen_close_grp
 
-def include_libs_vunit_tb (): # Default list of libraries to include - VUNIT version
+def include_libs_vunit_tb (): # Default list of libraries to include - VUNIT
     lib_list = "-- Import vunit lib\n"
     lib_list += "library vunit_lib;\n"
     lib_list += "use vunit_lib.print_pkg.all;\n"
@@ -98,12 +124,6 @@ def include_libs_vunit_tb (): # Default list of libraries to include - VUNIT ver
     lib_list += "--! \cond\n"
     lib_list += "context vunit_lib.vunit_context;\n"
     lib_list += "--! \endcond\n"
-    lib_list += "library ieee;\n"
-    lib_list += "use ieee.std_logic_1164.all;\n"
-    lib_list += "use ieee.std_logic_arith.all;\n"
-    lib_list += "use ieee.numeric_std.all;\n"
-    lib_list += "use ieee.std_logic_unsigned.ALL;\n"
-    lib_list += "use std.textio.all;\n"
     return lib_list
 
 def include_libs_tb (): # Default list of libraries to include
@@ -294,3 +314,10 @@ def close_loops_tb():
     close_list += "            clock_go <= '0';\n"
     close_list += "        end loop;\n"
     return close_list
+
+def basic_testcase():
+    basic_test_list =  "    -- Start writing tests here!\n"
+    basic_test_list += "    wait until rising_edge(Clock);\n"
+    basic_test_list += "\n"
+    basic_test_list += "    wait for 1 sec;\n"
+    return basic_test_list

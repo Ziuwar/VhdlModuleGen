@@ -8,6 +8,19 @@
 # Revision: 	R0.0.0 Not Tested
 ##################################################################################
 
+def assemble_source_file(module_name, author, quartus_version, generics, entity_in, entity_out):
+    source_file =  header_gen(module_name, author, quartus_version)
+    source_file += blank_lines(1)
+    source_file += include_libs()
+    source_file += blank_lines(1)
+    source_file += doxygen_start(module_name)
+    source_file += blank_lines(1)
+    source_file += entity(module_name, generics, entity_in, entity_out)
+    source_file += blank_lines(1)
+    source_file += architecture(module_name)
+    source_file += doxygen_end()
+    return source_file
+
 def header_gen (module_name,author,quartus_version): # Creation of the header for the implementation file
     header_text ="-----------------------------------------------------------------\n"
     header_text +="--! @file	"+ module_name +".vhd\n"

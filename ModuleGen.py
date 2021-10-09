@@ -23,32 +23,6 @@ entity_out = [("SirenOn", 1),("HornControl", 9), ("MuteActive", 3)]
 source_dir = "./Output/"+ module_name +".vhd"
 testbench_source_dir = "./Output/"+ module_name +"_tb.vhd"
 
-def assemble_source_file():
-    source_file =  SourceText.header_gen(module_name, author, quartus_version)
-    source_file += SourceText.blank_lines(1)
-    source_file += SourceText.include_libs()
-    source_file += SourceText.blank_lines(1)
-    source_file += SourceText.doxygen_start(module_name)
-    source_file += SourceText.blank_lines(1)
-    source_file += SourceText.entity(module_name, generics, entity_in, entity_out)
-    source_file += SourceText.blank_lines(1)
-    source_file += SourceText.architecture(module_name)
-    source_file += SourceText.doxygen_end()
-    return source_file
-
-def assemble_testbench_vunit_file():
-    testbench_file =  TestbenchGen.header_gen_tb(module_name, author, quartus_version)
-    testbench_file += SourceText.blank_lines(1)
-    testbench_file += TestbenchGen.include_libs_vunit_tb()
-    testbench_file += SourceText.blank_lines(1)
-    testbench_file += TestbenchGen.doxygen_start_tb(module_name)
-    testbench_file += SourceText.blank_lines(1)
-    testbench_file += TestbenchGen.entity_vunit_tb(module_name)
-    testbench_file += SourceText.blank_lines(1)
-    testbench_file += TestbenchGen.assamble_architecture_vunit_tb(module_name, generics, entity_in, entity_out)
-    testbench_file += TestbenchGen.doxygen_end_tb()
-    return testbench_file
-
-FileOps.write_source_file(source_dir,assemble_source_file())
-FileOps.write_source_file(testbench_source_dir,assemble_testbench_vunit_file())
+FileOps.write_source_file(source_dir,SourceText.assemble_source_file(module_name,author,quartus_version,generics,entity_in,entity_out))
+FileOps.write_source_file(testbench_source_dir,TestbenchGen.assemble_testbench_vunit_file(module_name, author, quartus_version, generics, entity_in, entity_out))
 

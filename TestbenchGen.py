@@ -11,6 +11,19 @@
 import SourceText
 import TestbenchProcedures
 
+def assemble_testbench_vunit_file(module_name, author, quartus_version, generics, entity_in, entity_out):
+    testbench_file =  header_gen_tb(module_name, author, quartus_version)
+    testbench_file += SourceText.blank_lines(1)
+    testbench_file += include_libs_vunit_tb()
+    testbench_file += SourceText.blank_lines(1)
+    testbench_file += doxygen_start_tb(module_name)
+    testbench_file += SourceText.blank_lines(1)
+    testbench_file += entity_vunit_tb(module_name)
+    testbench_file += SourceText.blank_lines(1)
+    testbench_file += assamble_architecture_vunit_tb(module_name, generics, entity_in, entity_out)
+    testbench_file += doxygen_end_tb()
+    return testbench_file
+
 def assamble_architecture_vunit_tb (module_name, generics, entity_in, entity_out):
     architecture_list = architecture_start_tb(module_name)
     architecture_list += signals_out(entity_in)

@@ -8,19 +8,20 @@
 # Revision: 	R0.0.0 Not Tested
 ##################################################################################
 
-from bin.SourceText import *
-from bin.TestbenchProcedures import *
+#from bin.TestbenchProcedures import *
+
+import bin as lib
 
 def assemble_testbench_vunit_file (module_name, author, software_version, generics, entity_in, entity_out):
     testbench_file =  header_gen_tb(module_name, author, software_version)
-    testbench_file += blank_lines(1)
+    testbench_file += lib.blank_lines(1)
     testbench_file += include_libs_vunit_tb()
     testbench_file += include_libs_tb()
-    testbench_file += blank_lines(1)
+    testbench_file += lib.blank_lines(1)
     testbench_file += doxygen_start_tb(module_name)
-    testbench_file += blank_lines(1)
+    testbench_file += lib.blank_lines(1)
     testbench_file += entity_vunit_tb(module_name)
-    testbench_file += blank_lines(1)
+    testbench_file += lib.blank_lines(1)
     testbench_file += assamble_architecture_vunit_tb(module_name, generics, entity_in, entity_out)
     testbench_file += doxygen_end_tb()
     return testbench_file
@@ -28,61 +29,61 @@ def assemble_testbench_vunit_file (module_name, author, software_version, generi
 def assamble_architecture_vunit_tb (module_name, generics, entity_in, entity_out):
     architecture_list = architecture_start_tb(module_name)
     architecture_list += signals_out(entity_in)
-    architecture_list += blank_lines(1)
+    architecture_list += lib.blank_lines(1)
     architecture_list += signals_in_tb(entity_out)
-    architecture_list += blank_lines(1)
+    architecture_list += lib.blank_lines(1)
     architecture_list += testbench_signals()
-    architecture_list += blank_lines(1)
+    architecture_list += lib.blank_lines(1)
     architecture_list += architecture_begin_tb()
     architecture_list += dut_instantiation_tb(module_name, generics, entity_in, entity_out)
-    architecture_list += blank_lines(1)
+    architecture_list += lib.blank_lines(1)
     architecture_list += main_process_vunit_tb(module_name)
-    architecture_list += blank_lines(1)
+    architecture_list += lib.blank_lines(1)
     architecture_list += variables_vunit_tb(module_name)
-    architecture_list += blank_lines(1)
-    architecture_list += include_procedures(module_name)
-    architecture_list += blank_lines(1)
+    architecture_list += lib.blank_lines(1)
+    architecture_list += lib.include_procedures(module_name)
+    architecture_list += lib.blank_lines(1)
     architecture_list += main_process_begin_tb()
     architecture_list += open_report_file_vunit_tb()
-    architecture_list += blank_lines(1)
+    architecture_list += lib.blank_lines(1)
     architecture_list += vunit_start_tb()
-    architecture_list += blank_lines(1)
+    architecture_list += lib.blank_lines(1)
     architecture_list += testbench_vunit_while_tb()
     architecture_list += vunit_testcase_one_tb(module_name)
-    architecture_list += blank_lines(1)
+    architecture_list += lib.blank_lines(1)
     architecture_list += vunit_testcase_two_tb(module_name)
-    architecture_list += blank_lines(1)
+    architecture_list += lib.blank_lines(1)
     architecture_list += report_vhdl_footer_tb(module_name)
-    architecture_list += blank_lines(1)
+    architecture_list += lib.blank_lines(1)
     architecture_list += close_loops_tb()
     architecture_list += main_process_end_tb()
-    architecture_list += blank_lines(1)
-    architecture_list += clock_process()
-    architecture_list += blank_lines(1)
+    architecture_list += lib.blank_lines(1)
+    architecture_list += lib.clock_process()
+    architecture_list += lib.blank_lines(1)
     architecture_list += architecture_end_tb(module_name)
     return architecture_list
 
 def assemble_testbench_basic_file (module_name, author, software_version, generics, entity_in, entity_out):
     testbench_file =  header_gen_tb(module_name, author, software_version)
-    testbench_file += blank_lines(1)
+    testbench_file += lib.blank_lines(1)
     testbench_file += include_libs_tb()
-    testbench_file += blank_lines(1)
+    testbench_file += lib.blank_lines(1)
     testbench_file += doxygen_start_tb(module_name)
-    testbench_file += blank_lines(1)
+    testbench_file += lib.blank_lines(1)
     testbench_file += entity_tb(module_name)
-    testbench_file += blank_lines(1)
+    testbench_file += lib.blank_lines(1)
     testbench_file += architecture_start_tb(module_name)
     testbench_file += signals_out(entity_in)
-    testbench_file += blank_lines(1)
+    testbench_file += lib.blank_lines(1)
     testbench_file += signals_in_tb(entity_out)
-    testbench_file += blank_lines(1)
+    testbench_file += lib.blank_lines(1)
     testbench_file += architecture_begin_tb()
     testbench_file += dut_instantiation_tb(module_name, generics, entity_in, entity_out)
-    testbench_file += blank_lines(2)
+    testbench_file += lib.blank_lines(2)
     testbench_file += basic_testcase()
-    testbench_file += blank_lines(1)
-    testbench_file += clock_process()
-    testbench_file += blank_lines(1)
+    testbench_file += lib.blank_lines(1)
+    testbench_file += lib.clock_process()
+    testbench_file += lib.blank_lines(1)
     testbench_file += architecture_end_tb(module_name)
     testbench_file += doxygen_end_tb()
     return testbench_file
@@ -276,17 +277,17 @@ def vunit_testcase_one_tb (module_name):
     test_one_list += """                print("--! @page """+ module_name +"""" ,fptr);\n"""
     test_one_list += """                print("--! @section HornControl Result of tests",fptr);\n"""
     test_one_list +=   "                --! \endcond\n"
-    test_one_list += blank_lines(1)
+    test_one_list += lib.blank_lines(1)
     test_one_list +=   "                wait for 1 us;\n"
     test_one_list += """                info("Test "& running_test_case &" - START");\n"""
     test_one_list += """                test_header(running_test_case,\n"""
     test_one_list += """                            "Lorem ipsum dolor sit amet.",\n""" 
     test_one_list += """                            "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",\n"""
     test_one_list += """                            "DHHLR_TBD","", "", "", "");\n"""
-    test_one_list += blank_lines(1)
+    test_one_list += lib.blank_lines(1)
     test_one_list +=   "                clock_go <= '1';\n"
     test_one_list +=   "                wait until rising_edge(Clock);\n"
-    test_one_list += blank_lines(3)
+    test_one_list += lib.blank_lines(3)
     test_one_list +=   "                wait for 1 sec;\n"
     test_one_list += """                info("Test "& running_test_case &" - DONE");\n"""
     return test_one_list
@@ -299,10 +300,10 @@ def vunit_testcase_two_tb (module_name):
     test_two_list += """                            "Lorem ipsum dolor sit amet.",\n""" 
     test_two_list += """                            "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",\n"""
     test_two_list += """                            "DHHLR_TBD","", "", "", "");\n"""
-    test_two_list += blank_lines(1)
+    test_two_list += lib.blank_lines(1)
     test_two_list +=   "                clock_go <= '1';\n"
     test_two_list +=   "                wait until rising_edge(Clock);\n"
-    test_two_list += blank_lines(3)
+    test_two_list += lib.blank_lines(3)
     test_two_list +=   "                wait for 1 sec;\n"
     test_two_list += """                info("Test "& running_test_case &" - DONE");\n"""
     return test_two_list

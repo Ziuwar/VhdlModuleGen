@@ -11,7 +11,7 @@
 from tkinter import *
 from tkinter import ttk
 from typing import Sized
-import ModuleGen
+from bin.ModuleGen import *
 
 def main():
 
@@ -21,6 +21,7 @@ def main():
     window.title("VHDL Module Gen!")
 
     def generate_button_action():
+        generate_write_files(entry_module_name.get(), author_name.get(), software_version.get())
         labeltest = Label(window, text = entry_module_name.get())
         labeltest.grid(column=0)
 

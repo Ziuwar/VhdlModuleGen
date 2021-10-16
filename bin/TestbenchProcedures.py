@@ -8,21 +8,21 @@
 # Revision: 	R0.0.0 Not Tested
 ##################################################################################
 
-import SourceText
+from bin.SourceText import *
 
 def include_procedures (module_name):
     procedures_list = check_equal_bit()
-    procedures_list += SourceText.blank_lines(1)
+    procedures_list += blank_lines(1)
     procedures_list += check_equal_time()
-    procedures_list += SourceText.blank_lines(1)
+    procedures_list += blank_lines(1)
     procedures_list += check_equal_vector()
-    procedures_list += SourceText.blank_lines(1)
+    procedures_list += blank_lines(1)
     procedures_list += check_equal_integer()
-    procedures_list += SourceText.blank_lines(1)
+    procedures_list += blank_lines(1)
     procedures_list += wait_clock_plus_time()
-    procedures_list += SourceText.blank_lines(1)
+    procedures_list += blank_lines(1)
     procedures_list += time_diff_calc()
-    procedures_list += SourceText.blank_lines(1)
+    procedures_list += blank_lines(1)
     procedures_list += test_header(module_name)
     return procedures_list
 

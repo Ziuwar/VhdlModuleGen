@@ -47,13 +47,13 @@ architecture a_ModuleNameQualification_TB of e_ModuleNameQualification_TB is
      -- Testbench Outputs
     signal Clock : in std_logic;
     signal Reset_n : in std_logic;
-    signal TimingPulse : in std_logic_vector [15 downto 0];
-    signal WarningEnable_n : in std_logic_vector [11 downto 0];
+    signal TimingPulse : in std_logic_vector (15 downto 0);
+    signal WarningEnable_n : in std_logic_vector (11 downto 0);
 
      -- Testbench Inputs
     signal SirenOn : std_logic;
-    signal HornControl : std_logic_vector [9 downto 0];
-    signal MuteActive : std_logic_vector [3 downto 0];
+    signal HornControl : std_logic_vector (9 downto 0);
+    signal MuteActive : std_logic_vector (3 downto 0);
 
 begin
    --! @brief DUT instantiation
@@ -283,6 +283,6 @@ begin
     wait for (clock_period / 2);
 end process;
 
-end architecture a_ModuleNameQualification_tb;
+end architecture a_ModuleNameQualification_TB;
 --! @}
 --! @}

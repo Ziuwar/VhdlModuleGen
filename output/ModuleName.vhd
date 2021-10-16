@@ -27,17 +27,19 @@ use ieee.math_real.all;
 --! @brief Entity of the ModuleName logic module.
 --! @details All test signal generation and result analysis is done here.
 entity e_ModuleName is
-    generic (target_time : integer := 5);
-    generic (target_aquired : std_logic := 1);
+    generic(
+        target_time : integer := 5;
+        target_aquired : std_logic := 1;
+    );
     port(
         Clock : in std_logic;
         Reset_n : in std_logic;
-        TimingPulse : in std_logic_vector [15 downto 0];
-        WarningEnable_n : in std_logic_vector [11 downto 0];
+        TimingPulse : in std_logic_vector (15 downto 0);
+        WarningEnable_n : in std_logic_vector (11 downto 0);
 
         SirenOn : out std_logic;
-        HornControl : out std_logic_vector [9 downto 0];
-        MuteActive : out std_logic_vector [3 downto 0]
+        HornControl : out std_logic_vector (9 downto 0);
+        MuteActive : out std_logic_vector (3 downto 0)
     );
 end entity e_ModuleName;
 

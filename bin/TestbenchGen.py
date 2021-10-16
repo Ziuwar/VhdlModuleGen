@@ -167,17 +167,17 @@ def architecture_begin_tb ():
     return "begin\n"
 
 def architecture_end_tb (module_name):
-    return "end architecture a_"+ module_name +"Qualification_tb;\n"
+    return "end architecture a_"+ module_name +"Qualification_TB;\n"
 
 def signals_out (entity_in):
     if entity_in:
         signals_list = "     -- Testbench Outputs\n"
         for input in entity_in:
-            signals_list += "    signal "+ input[0] +" : in "
+            signals_list += "    signal "+ input[0] +" : "
             if input[1] == 1:
                  signals_list += "std_logic;\n"
             else:
-                signals_list += "std_logic_vector ["+ str(input[1]) +" downto 0];\n"
+                signals_list += "std_logic_vector ("+ str(input[1]) +" downto 0);\n"
     return signals_list
 
 def signals_in_tb (entity_out):
@@ -188,7 +188,7 @@ def signals_in_tb (entity_out):
             if output[1] == 1:
                  signals_list += "std_logic;\n"
             else:
-                signals_list += "std_logic_vector ["+ str(output[1]) +" downto 0];\n"
+                signals_list += "std_logic_vector ("+ str(output[1]) +" downto 0);\n"
     return signals_list
 
 def dut_instantiation_tb (module_name, generics, signals_out, signals_in):

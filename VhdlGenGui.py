@@ -11,7 +11,7 @@
 from tkinter import *
 from tkinter import ttk
 from typing import Sized
-from bin.ModuleGen import *
+from bin.ModuleGen import generate_write_files
 
 def main():
 

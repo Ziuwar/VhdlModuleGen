@@ -76,8 +76,10 @@ def entity (module_name, generics, entity_in, entity_out): # Entity generation w
     entity_list += "entity e_"+ module_name +" is\n"
 
     if generics:
+        entity_list += "    generic(\n"
         for generic in generics:
-            entity_list += "    generic ("+ generic[0] +" : "+ generic[1] +" := "+ str(generic[2]) +");\n"
+            entity_list += "        "+ generic[0] +" : "+ generic[1] +" := "+ str(generic[2]) +";\n"
+        entity_list += "    );\n"
 
     entity_list += "    port(\n"
 
@@ -88,7 +90,7 @@ def entity (module_name, generics, entity_in, entity_out): # Entity generation w
             if entity[1] == 1:
                  entity_list += "std_logic;\n"
             else:
-                entity_list += "std_logic_vector ["+ str(entity[1]) +" downto 0];\n"
+                entity_list += "std_logic_vector ("+ str(entity[1]) +" downto 0);\n"
 
     entity_list += "\n"
 
@@ -99,7 +101,7 @@ def entity (module_name, generics, entity_in, entity_out): # Entity generation w
             if entity[1] == 1:
                  entity_list += "std_logic"
             else:
-                entity_list += "std_logic_vector ["+ str(entity[1]) +" downto 0]"
+                entity_list += "std_logic_vector ("+ str(entity[1]) +" downto 0)"
 
             if entity_out[len(entity_out) - 1] == entity:
                 entity_list += "\n"

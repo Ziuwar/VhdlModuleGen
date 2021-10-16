@@ -12,7 +12,7 @@ from bin.FileOps import *
 from bin.SourceText import *
 from bin.TestbenchGen import *
 
-generics = [("target_time", "integer", 5),("target_aquired", "std_logic", 1)] #ToDo
+generics = [("target_time", "integer", 5),("target_aquired", "integer", 1)] #ToDo
 entity_in = [("Clock", 1),("Reset_n", 1),("TimingPulse", 15),("WarningEnable_n", 11)] #ToDo
 entity_out = [("SirenOn", 1),("HornControl", 9), ("MuteActive", 3)]#Todo
 

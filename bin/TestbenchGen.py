@@ -31,6 +31,8 @@ def assamble_architecture_vunit_tb (module_name, generics, entity_in, entity_out
     architecture_list += blank_lines(1)
     architecture_list += signals_in_tb(entity_out)
     architecture_list += blank_lines(1)
+    architecture_list += testbench_signals()
+    architecture_list += blank_lines(1)
     architecture_list += architecture_begin_tb()
     architecture_list += dut_instantiation_tb(module_name, generics, entity_in, entity_out)
     architecture_list += blank_lines(1)
@@ -171,7 +173,7 @@ def architecture_end_tb (module_name):
 
 def signals_out (entity_in):
     if entity_in:
-        signals_list = "     -- Testbench Outputs\n"
+        signals_list = "    -- Testbench Outputs\n"
         for input in entity_in:
             signals_list += "    signal "+ input[0] +" : "
             if input[1] == 1:
@@ -182,7 +184,7 @@ def signals_out (entity_in):
 
 def signals_in_tb (entity_out):
     if entity_out:
-        signals_list = "     -- Testbench Inputs\n"
+        signals_list = "    -- Testbench Inputs\n"
         for output in entity_out:
             signals_list += "    signal "+ output[0] +" : "
             if output[1] == 1:
@@ -190,6 +192,12 @@ def signals_in_tb (entity_out):
             else:
                 signals_list += "std_logic_vector ("+ str(output[1]) +" downto 0);\n"
     return signals_list
+
+def testbench_signals():
+    tb_signals_list =  "    -- Testbench signals\n"
+    tb_signals_list += "    signal clock_go     : std_logic := '0';     --! Enables the clock generation\n"
+    tb_signals_list += "    signal clock_period : time := 125 ns;       --! Clock periode\n"
+    return tb_signals_list
 
 def dut_instantiation_tb (module_name, generics, signals_out, signals_in):
     portmap_list = "   --! @brief DUT instantiation\n"
@@ -231,9 +239,6 @@ def variables_vunit_tb (module_name):
     variables_list += """        constant file_name    : string   := output_path(runner_cfg) & "../../../results/"""+ module_name +"""Result.vhd"; --! Output path for the testbench results\n"""
     variables_list +=   "        file fptr             : text;             --! File variable to store text passed to the logger\n"
     variables_list +=   "        variable status       : file_open_status; --! Provides feedback to the logger if a file is open\n"
-    variables_list +=   "        variable clock_go     : std_logic;        --! Enables the clock generation\n"
-    variables_list +=   "        variable clock_period : time := 250 ns;    --! Clock periode\n"
-
     return variables_list
 
 def main_process_begin_tb():

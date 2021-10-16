@@ -33,13 +33,13 @@ entity e_ModuleNameQualification_TB is
 end entity e_ModuleNameQualification_TB;
 
 architecture a_ModuleNameQualification_TB of e_ModuleNameQualification_TB is
-     -- Testbench Outputs
+    -- Testbench Outputs
     signal Clock : std_logic;
     signal Reset_n : std_logic;
     signal TimingPulse : std_logic_vector (15 downto 0);
     signal WarningEnable_n : std_logic_vector (11 downto 0);
 
-     -- Testbench Inputs
+    -- Testbench Inputs
     signal SirenOn : std_logic;
     signal HornControl : std_logic_vector (9 downto 0);
     signal MuteActive : std_logic_vector (3 downto 0);
@@ -65,10 +65,10 @@ begin
     );
 
 
-    -- Start writing tests here!
-    wait until rising_edge(Clock);
-
-    wait for 1 sec;
+    testbench: process
+    begin
+        wait for 1 sec;
+    end process;
 
 clk: process
 begin

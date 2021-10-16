@@ -44,16 +44,20 @@ entity e_ModuleNameQualification_TB is
 end entity e_ModuleNameQualification_TB;
 
 architecture a_ModuleNameQualification_TB of e_ModuleNameQualification_TB is
-     -- Testbench Outputs
+    -- Testbench Outputs
     signal Clock : std_logic;
     signal Reset_n : std_logic;
     signal TimingPulse : std_logic_vector (15 downto 0);
     signal WarningEnable_n : std_logic_vector (11 downto 0);
 
-     -- Testbench Inputs
+    -- Testbench Inputs
     signal SirenOn : std_logic;
     signal HornControl : std_logic_vector (9 downto 0);
     signal MuteActive : std_logic_vector (3 downto 0);
+
+    -- Testbench signals
+    signal clock_go     : std_logic <= '0';     --! Enables the clock generation
+    signal clock_period : time <= 125 ns;       --! Clock periode
 
 begin
    --! @brief DUT instantiation
@@ -83,8 +87,6 @@ begin
         constant file_name    : string   := output_path(runner_cfg) & "../../../results/ModuleNameResult.vhd"; --! Output path for the testbench results
         file fptr             : text;             --! File variable to store text passed to the logger
         variable status       : file_open_status; --! Provides feedback to the logger if a file is open
-        variable clock_go     : std_logic;        --! Enables the clock generation
-        variable clock_period : time = 250 ns;    --! Clock periode
 
         --! Bit checker customization to write pass/fail message in the logfile
         procedure check_equal_bit (
@@ -236,6 +238,7 @@ begin
                             "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",
                             "DHHLR_TBD","", "", "", "");
 
+                clock_go := '1';
                 wait until rising_edge(Clock);
 
 
@@ -251,6 +254,7 @@ begin
                             "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",
                             "DHHLR_TBD","", "", "", "");
 
+                clock_go := '1';
                 wait until rising_edge(Clock);
 
 
@@ -269,7 +273,7 @@ begin
                 print("--! @}",fptr);
 
             end if;
-            clock_go <= '0';
+            clock_go := '0';
         end loop;
         wait for 10 us;
         file_close(fptr); -- Close the file

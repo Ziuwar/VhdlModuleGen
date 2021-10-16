@@ -284,7 +284,7 @@ def vunit_testcase_one_tb (module_name):
     test_one_list += """                            "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",\n"""
     test_one_list += """                            "DHHLR_TBD","", "", "", "");\n"""
     test_one_list += blank_lines(1)
-    test_one_list +=   "                clock_go := '1';\n"
+    test_one_list +=   "                clock_go <= '1';\n"
     test_one_list +=   "                wait until rising_edge(Clock);\n"
     test_one_list += blank_lines(3)
     test_one_list +=   "                wait for 1 sec;\n"
@@ -300,7 +300,7 @@ def vunit_testcase_two_tb (module_name):
     test_two_list += """                            "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",\n"""
     test_two_list += """                            "DHHLR_TBD","", "", "", "");\n"""
     test_two_list += blank_lines(1)
-    test_two_list +=   "                clock_go := '1';\n"
+    test_two_list +=   "                clock_go <= '1';\n"
     test_two_list +=   "                wait until rising_edge(Clock);\n"
     test_two_list += blank_lines(3)
     test_two_list +=   "                wait for 1 sec;\n"
@@ -321,7 +321,7 @@ def report_vhdl_footer_tb (module_name):
 
 def close_loops_tb():
     close_list =  "            end if;\n"
-    close_list += "            clock_go := '0';\n"
+    close_list += "            clock_go <= '0';\n"
     close_list += "        end loop;\n"
     return close_list
 

@@ -34,10 +34,10 @@ end entity e_ModuleNameQualification_TB;
 
 architecture a_ModuleNameQualification_TB of e_ModuleNameQualification_TB is
      -- Testbench Outputs
-    signal Clock : in std_logic;
-    signal Reset_n : in std_logic;
-    signal TimingPulse : in std_logic_vector (15 downto 0);
-    signal WarningEnable_n : in std_logic_vector (11 downto 0);
+    signal Clock : std_logic;
+    signal Reset_n : std_logic;
+    signal TimingPulse : std_logic_vector (15 downto 0);
+    signal WarningEnable_n : std_logic_vector (11 downto 0);
 
      -- Testbench Inputs
     signal SirenOn : std_logic;

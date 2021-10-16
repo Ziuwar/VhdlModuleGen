@@ -78,7 +78,13 @@ def entity (module_name, generics, entity_in, entity_out): # Entity generation w
     if generics:
         entity_list += "    generic(\n"
         for generic in generics:
-            entity_list += "        "+ generic[0] +" : "+ generic[1] +" := "+ str(generic[2]) +";\n"
+            entity_list += "        "+ generic[0] +" : "+ generic[1] +" := "+ str(generic[2])
+
+            if generics[len(generics) - 1] == generic:
+                entity_list += "\n"
+            else:
+                entity_list += ";\n"
+
         entity_list += "    );\n"
 
     entity_list += "    port(\n"

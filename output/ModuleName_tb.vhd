@@ -45,10 +45,10 @@ end entity e_ModuleNameQualification_TB;
 
 architecture a_ModuleNameQualification_TB of e_ModuleNameQualification_TB is
      -- Testbench Outputs
-    signal Clock : in std_logic;
-    signal Reset_n : in std_logic;
-    signal TimingPulse : in std_logic_vector (15 downto 0);
-    signal WarningEnable_n : in std_logic_vector (11 downto 0);
+    signal Clock : std_logic;
+    signal Reset_n : std_logic;
+    signal TimingPulse : std_logic_vector (15 downto 0);
+    signal WarningEnable_n : std_logic_vector (11 downto 0);
 
      -- Testbench Inputs
     signal SirenOn : std_logic;
@@ -79,10 +79,12 @@ begin
     --! @details Vunit loops through all the test cases present in the if statement inside the while loop
     main : process
 
-        variable qtb_logger : logger_t := get_logger("logging_timer_QTB:qtb_logger");   --! A logger framework provided by vunit
-        constant file_name  : string   := output_path(runner_cfg) & "../../../results/ModuleNameResult.vhd"; --! Output path for the testbench results
-        file fptr           : text;             --! File variable to store text passed to the logger
-        variable status     : file_open_status; --! Provides feedback to the logger if a file is open
+        variable qtb_logger   : logger_t := get_logger("logging_timer_QTB:qtb_logger");   --! A logger framework provided by vunit
+        constant file_name    : string   := output_path(runner_cfg) & "../../../results/ModuleNameResult.vhd"; --! Output path for the testbench results
+        file fptr             : text;             --! File variable to store text passed to the logger
+        variable status       : file_open_status; --! Provides feedback to the logger if a file is open
+        variable clock_go     : std_logic;        --! Enables the clock generation
+        variable clock_period : time = 250 ns;    --! Clock periode
 
         --! Bit checker customization to write pass/fail message in the logfile
         procedure check_equal_bit (

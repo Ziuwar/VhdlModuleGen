@@ -56,8 +56,8 @@ architecture a_ModuleNameQualification_TB of e_ModuleNameQualification_TB is
     signal MuteActive : std_logic_vector (3 downto 0);
 
     -- Testbench signals
-    signal clock_go     : std_logic <= '0';     --! Enables the clock generation
-    signal clock_period : time <= 125 ns;       --! Clock periode
+    signal clock_go     : std_logic := '0';     --! Enables the clock generation
+    signal clock_period : time := 125 ns;       --! Clock periode
 
 begin
    --! @brief DUT instantiation
@@ -84,7 +84,7 @@ begin
     main : process
 
         variable qtb_logger   : logger_t := get_logger("logging_timer_QTB:qtb_logger");   --! A logger framework provided by vunit
-        constant file_name    : string   := output_path(runner_cfg) & "../../../results/ModuleNameResult.vhd"; --! Output path for the testbench results
+        constant file_name    : string   := output_path(runner_cfg) & "../../../Testbench/results/ModuleNameResult.vhd"; --! Output path for the testbench results
         file fptr             : text;             --! File variable to store text passed to the logger
         variable status       : file_open_status; --! Provides feedback to the logger if a file is open
 
@@ -238,7 +238,7 @@ begin
                             "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",
                             "DHHLR_TBD","", "", "", "");
 
-                clock_go := '1';
+                clock_go <= '1';
                 wait until rising_edge(Clock);
 
 
@@ -254,7 +254,7 @@ begin
                             "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",
                             "DHHLR_TBD","", "", "", "");
 
-                clock_go := '1';
+                clock_go <= '1';
                 wait until rising_edge(Clock);
 
 
@@ -273,7 +273,7 @@ begin
                 print("--! @}",fptr);
 
             end if;
-            clock_go := '0';
+            clock_go <= '0';
         end loop;
         wait for 10 us;
         file_close(fptr); -- Close the file

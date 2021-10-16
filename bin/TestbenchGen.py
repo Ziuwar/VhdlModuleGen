@@ -236,7 +236,7 @@ def main_process_vunit_tb (module_name):
 
 def variables_vunit_tb (module_name):
     variables_list =  """        variable qtb_logger   : logger_t := get_logger("logging_timer_QTB:qtb_logger");   --! A logger framework provided by vunit\n"""
-    variables_list += """        constant file_name    : string   := output_path(runner_cfg) & "../../../results/"""+ module_name +"""Result.vhd"; --! Output path for the testbench results\n"""
+    variables_list += """        constant file_name    : string   := output_path(runner_cfg) & "../../../Testbench/results/"""+ module_name +"""Result.vhd"; --! Output path for the testbench results\n"""
     variables_list +=   "        file fptr             : text;             --! File variable to store text passed to the logger\n"
     variables_list +=   "        variable status       : file_open_status; --! Provides feedback to the logger if a file is open\n"
     return variables_list

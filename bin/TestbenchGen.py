@@ -77,6 +77,8 @@ def assemble_testbench_basic_file (module_name, author, software_version, generi
     testbench_file += lib.blank_lines(1)
     testbench_file += signals_in_tb(entity_out)
     testbench_file += lib.blank_lines(1)
+    testbench_file += testbench_signals()
+    testbench_file += lib.blank_lines(1)
     testbench_file += architecture_begin_tb()
     testbench_file += dut_instantiation_tb(module_name, generics, entity_in, entity_out)
     testbench_file += lib.blank_lines(2)

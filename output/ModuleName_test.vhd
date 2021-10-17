@@ -44,6 +44,10 @@ architecture a_ModuleNameQualification_TB of e_ModuleNameQualification_TB is
     signal HornControl : std_logic_vector (9 downto 0);
     signal MuteActive : std_logic_vector (3 downto 0);
 
+    -- Testbench signals
+    signal clock_go     : std_logic := '0';     --! Enables the clock generation
+    signal clock_period : time := 125 ns;       --! Clock periode
+
 begin
    --! @brief DUT instantiation
    --! @details Instantiation of the DUT

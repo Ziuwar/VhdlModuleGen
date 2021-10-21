@@ -29,7 +29,7 @@ use ieee.math_real.all;
 entity e_ModuleName is
     generic(
         target_time : integer := 5;
-        target_aquired : integer := 1
+        target_acquired : integer := 1
     );
     port(
         Clock : in std_logic;

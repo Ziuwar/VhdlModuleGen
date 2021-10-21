@@ -65,7 +65,7 @@ begin
    i_DUT : entity work.e_ModuleName(a_ModuleName)
     generic map(
     target_time => 5,
-    target_aquired => 1
+    target_acquired => 1
     )
     -- To DUT aka TB Outputs
     port map(

@@ -10,12 +10,7 @@
 
 import bin as lib
 
-generics = [("target_time", "integer", 5),("target_acquired", "integer", 1)] #ToDo
-entity_in = [("Clock", 1),("Reset_n", 1),("TimingPulse", 15),("WarningEnable_n", 11)] #ToDo
-entity_out = [("SirenOn", 1),("HornControl", 9), ("MuteActive", 3)]#Todo
-
 def generate_write_files(module_name, author, software_version, generics_in, entity_in_in, entity_out_in):
-#def generate_write_files(module_name, author, software_version):
 
     source_file = "./output/"+ module_name +".vhd" #Todo
     testbench_source_file_vunit = "./output/"+ module_name +"_tb.vhd"#ToDo
@@ -24,13 +19,3 @@ def generate_write_files(module_name, author, software_version, generics_in, ent
     lib.write_source_file(source_file,lib.assemble_source_file(module_name,author,software_version,generics_in,entity_in_in,entity_out_in))
     lib.write_source_file(testbench_source_file_vunit,lib.assemble_testbench_vunit_file(module_name,author,software_version,generics_in,entity_in_in,entity_out_in))
     lib.write_source_file(testbench_source_file_basic,lib.assemble_testbench_basic_file(module_name,author,software_version,generics_in,entity_in_in,entity_out_in))
-
-    print("Generics:")
-    for i in generics_in:
-        print(i)
-    print("Inputs:")
-    for i in entity_in_in:
-        print(i)
-    print("Outputs:")
-    for i in entity_out_in:
-        print(i)

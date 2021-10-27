@@ -34,8 +34,7 @@ def main():
             message = "Enter at least one output."
         else:
             lib.generate_write_files(entry_module_name.get(), author_name.get(), software_version.get(), collected_generics, collected_inputs, collected_outputs)
-            #lib.generate_write_files(entry_module_name.get(), author_name.get(), software_version.get(), collected_generics)
-            
+
         labeltest = Label(window, text = message)
         labeltest.grid(column=0)
 

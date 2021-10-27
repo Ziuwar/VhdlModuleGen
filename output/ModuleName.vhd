@@ -28,18 +28,12 @@ use ieee.math_real.all;
 --! @details All test signal generation and result analysis is done here.
 entity e_ModuleName is
     generic(
-        target_time : integer := 5;
-        target_acquired : integer := 1
+        max_level : integer := 42
     );
     port(
-        Clock : in std_logic;
-        Reset_n : in std_logic;
-        TimingPulse : in std_logic_vector (15 downto 0);
-        WarningEnable_n : in std_logic_vector (11 downto 0);
+        input_level : in std_logic_vector (8 downto 0);
 
-        SirenOn : out std_logic;
-        HornControl : out std_logic_vector (9 downto 0);
-        MuteActive : out std_logic_vector (3 downto 0)
+        output_level : out std_logic_vector (8 downto 0)
     );
 end entity e_ModuleName;
 

@@ -183,6 +183,8 @@ def signals_out (entity_in):
                  signals_list += "std_logic;\n"
             else:
                 signals_list += "std_logic_vector ("+ str(input[1]) +" downto 0);\n"
+    else:
+        entity_in = "There was no input specified.\n"
     return signals_list
 
 def signals_in_tb (entity_out):
@@ -194,6 +196,8 @@ def signals_in_tb (entity_out):
                  signals_list += "std_logic;\n"
             else:
                 signals_list += "std_logic_vector ("+ str(output[1]) +" downto 0);\n"
+    else:
+        entity_out = "There was no output specified.\n"
     return signals_list
 
 def testbench_signals():
@@ -229,6 +233,8 @@ def dut_instantiation_tb (module_name, generics, signals_out, signals_in):
             else:
                 portmap_list += ",\n"
         portmap_list += "    );\n"
+    else:
+        portmap_list = "There was no in- or output specified."
     return portmap_list
 
 def main_process_vunit_tb (module_name):

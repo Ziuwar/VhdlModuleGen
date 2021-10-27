@@ -21,9 +21,9 @@ def generate_write_files(module_name, author, software_version, generics_in, ent
     testbench_source_file_vunit = "./output/"+ module_name +"_tb.vhd"#ToDo
     testbench_source_file_basic = "./output/"+ module_name +"_test.vhd"#ToDo
 
-    lib.write_source_file(source_file,lib.assemble_source_file(module_name,author,software_version,generics,entity_in,entity_out))
-    lib.write_source_file(testbench_source_file_vunit,lib.assemble_testbench_vunit_file(module_name,author,software_version,generics,entity_in,entity_out))
-    lib.write_source_file(testbench_source_file_basic,lib.assemble_testbench_basic_file(module_name,author,software_version,generics,entity_in,entity_out))
+    lib.write_source_file(source_file,lib.assemble_source_file(module_name,author,software_version,generics_in,entity_in_in,entity_out_in))
+    lib.write_source_file(testbench_source_file_vunit,lib.assemble_testbench_vunit_file(module_name,author,software_version,generics_in,entity_in_in,entity_out_in))
+    lib.write_source_file(testbench_source_file_basic,lib.assemble_testbench_basic_file(module_name,author,software_version,generics_in,entity_in_in,entity_out_in))
 
     print("Generics:")
     for i in generics_in:

@@ -34,15 +34,10 @@ end entity e_ModuleNameQualification_TB;
 
 architecture a_ModuleNameQualification_TB of e_ModuleNameQualification_TB is
     -- Testbench Outputs
-    signal Clock : std_logic;
-    signal Reset_n : std_logic;
-    signal TimingPulse : std_logic_vector (15 downto 0);
-    signal WarningEnable_n : std_logic_vector (11 downto 0);
+    signal input_level : std_logic_vector (8 downto 0);
 
     -- Testbench Inputs
-    signal SirenOn : std_logic;
-    signal HornControl : std_logic_vector (9 downto 0);
-    signal MuteActive : std_logic_vector (3 downto 0);
+    signal output_level : std_logic_vector (8 downto 0);
 
     -- Testbench signals
     signal clock_go     : std_logic := '0';     --! Enables the clock generation
@@ -53,19 +48,13 @@ begin
    --! @details Instantiation of the DUT
    i_DUT : entity work.e_ModuleName(a_ModuleName)
     generic map(
-    target_time => 5,
-    target_acquired => 1
+    max_level => 42
     )
     -- To DUT aka TB Outputs
     port map(
-    Clock => Clock,
-    Reset_n => Reset_n,
-    TimingPulse => TimingPulse,
-    WarningEnable_n => WarningEnable_n,
+    input_level => input_level,
     -- From DUT aka TB Inputs
-    SirenOn => SirenOn,
-    HornControl => HornControl,
-    MuteActive => MuteActive
+    output_level => output_level
     );
 
 

@@ -81,6 +81,9 @@ def entity (module_name, generics, entity_in, entity_out): # Entity generation w
             entity_list += "        "+ generic[0] +" : "+ generic[1] +" := "+ str(generic[2])
 
             if generics[len(generics) - 1] == generic:
+                print(len(generics))
+                print(generics[len(generics) - 1])
+                print(generic)
                 entity_list += "\n"
             else:
                 entity_list += ";\n"
@@ -97,6 +100,8 @@ def entity (module_name, generics, entity_in, entity_out): # Entity generation w
                  entity_list += "std_logic;\n"
             else:
                 entity_list += "std_logic_vector ("+ str(entity[1]) +" downto 0);\n"
+    else:
+        entity_list = "There was no input specified.\n"
 
     entity_list += "\n"
 
@@ -113,6 +118,8 @@ def entity (module_name, generics, entity_in, entity_out): # Entity generation w
                 entity_list += "\n"
             else:
                 entity_list += ";\n"
+    else:
+        entity_list = "There was no output specified.\n"
 
     entity_list += "    );\n"
     entity_list += "end entity e_"+ module_name +";\n"

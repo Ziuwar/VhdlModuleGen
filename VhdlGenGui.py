@@ -27,9 +27,16 @@ def main():
     collected_outputs = []
 
     def generate_button_action():
-        lib.generate_write_files(entry_module_name.get(), author_name.get(), software_version.get(), collected_generics, collected_inputs, collected_outputs)
-        #lib.generate_write_files(entry_module_name.get(), author_name.get(), software_version.get(), collected_generics)
-        labeltest = Label(window, text = entry_module_name.get())
+        message = "No error! All done!"
+        if not collected_inputs:
+            message = "Enter at least one input."
+        elif not collected_outputs:
+            message = "Enter at least one output."
+        else:
+            lib.generate_write_files(entry_module_name.get(), author_name.get(), software_version.get(), collected_generics, collected_inputs, collected_outputs)
+            #lib.generate_write_files(entry_module_name.get(), author_name.get(), software_version.get(), collected_generics)
+            
+        labeltest = Label(window, text = message)
         labeltest.grid(column=0)
 
     def generic_insert_button_action():
@@ -161,6 +168,10 @@ def main():
     label_outputs = Label(frame, text = "Enter VHDL Module Outputs")
     tree_outputs = ttk.Treeview(frame, height = 3, columns=io_column_numbers, show = 'headings')
 
+    outputs_scrollbar = Scrollbar(frame, orient=VERTICAL)
+    tree_outputs.config(yscrollcommand=outputs_scrollbar.set)
+    outputs_scrollbar.config(command=tree_outputs.yview)
+
     # Define headings 
     tree_outputs.heading(io_column_numbers[0], text=io_columns[0])
     tree_outputs.heading(io_column_numbers[1], text=io_columns[1])
@@ -233,6 +244,7 @@ def main():
     button_output_insert.grid(row=19,column=2)
 
     tree_outputs.grid(row = 20, column=0, columnspan = 4, sticky='NSEW')
+    outputs_scrollbar.grid(row = 20, column=5, sticky='NSEW')
     button_outputs_delete.grid(row=21,column=0)
 
     seperator_hor_bot.grid(row = 50, columnspan = 4, sticky='NSEW')

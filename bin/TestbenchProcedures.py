@@ -1,7 +1,6 @@
 ##################################################################################
-# Company: 	    AS Eng / AVSR
 # File: 		TestbenchProcedures.py
-# Author: 		Andreas Schroeder
+# Author: 		Ziuwar
 # Date: 		04.10.2021
 #
 # Description: 	Testbench procedures, mostly for VUNIT  

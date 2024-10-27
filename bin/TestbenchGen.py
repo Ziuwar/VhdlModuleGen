@@ -1,7 +1,6 @@
 ##################################################################################
-# Company: 	    AS Eng / AVSR
 # File: 		TestbenchGen.py
-# Author: 		Andreas Schroeder
+# Author: 		Ziuwar
 # Date: 		27.09.2021
 #
 # Description: 	Blocks of text for the testbench source file 
@@ -95,7 +94,7 @@ def header_gen_tb (module_name,author,quartus_version): # Creation of the header
     header_text +="--! @file	"+ module_name +".vhd\n"
     header_text +="--! @brief	Testbench for the module "+ module_name +".vhd\n"
     header_text +="\n"
-    header_text +="--! @copyright 2021 Avionik Straubing Entwicklungs GmbH\n"
+    header_text +="--! @copyright 2021 \n"
     header_text +="--! @version Version 1.0, Platform: Quartus "+ quartus_version +"\n"
     header_text +="\n"
     header_text +="--! | Attribute | Value |\n"

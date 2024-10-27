@@ -1,7 +1,6 @@
 ##################################################################################
-# Company: 	    AS Eng / AVSR
 # File: 		FileOps.py
-# Author: 		Andreas Schroeder
+# Author: 		Ziuwar
 # Date: 		27.09.2021
 #
 # Description: 	File handling - Open - Write - Read - Close - Directory selection and change

@@ -1,7 +1,6 @@
 ##################################################################################
-# Company: 	    AS Eng / AVSR
 # File: 		VhdlModuleGen.py
-# Author: 		Andreas Schroeder
+# Author: 		Ziuwar
 # Date: 		27.09.2021
 #
 # Description: 	Creates a VHDL module and VUNIT testbench file in the given directory

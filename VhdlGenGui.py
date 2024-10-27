@@ -1,7 +1,6 @@
 ##################################################################################
-# Company: 	    AS Eng / AVSR
 # File: 		VhdlGenGui.py
-# Author: 		Andreas Schroeder
+# Author: 		Ziuwar
 # Date: 		09.10.2021
 #
 # Description: 	GUI for the VHDL module generator

@@ -1,7 +1,6 @@
 ##################################################################################
-# Company: 	    AS Eng / AVSR
 # File: 		SourceText.py
-# Author: 		Andreas Schroeder
+# Author: 		Ziuwar
 # Date: 		27.09.2021
 #
 # Description: 	Blocks of text for the source file
@@ -26,7 +25,7 @@ def header_gen (module_name,author,software_version): # Creation of the header f
     header_text +="--! @file	"+ module_name +".vhd\n"
     header_text +="--! @brief	Implementation of the VHDL module "+ module_name +".vhd\n"
     header_text +="\n"
-    header_text +="--! @copyright 2021 Avionik Straubing Entwicklungs GmbH\n"
+    header_text +="--! @copyright 2021 \n"
     header_text +="--! @version Version 1.0, Platform: Quartus "+ software_version +"\n"
     header_text +="\n"
     header_text +="--! | Attribute | Value |\n"
